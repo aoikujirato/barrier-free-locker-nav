@@ -8,7 +8,7 @@ from shapely.geometry import Point, LineString
 from streamlit_js_eval import get_geolocation
 
 # 1. ページ設定とスタイル
-st.set_page_config(page_title="荷物フリーでGO!", layout="wide")
+st.set_page_config(page_title="もっと荷物フリーでGO!", layout="wide")
 
 st.markdown("""
     <style>
@@ -31,12 +31,14 @@ st.markdown("""
 st.markdown('<div class="main-header"><div class="header-top">もっと荷物フリーでGO !</div><div class="header-title">新宿西口駅：バリアフリー・ロッカーナビ</div></div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-description">新宿西口駅：コインロッカー検索＆バリアフリー経路検索アプリ</div>', unsafe_allow_html=True)
 
+message_placeholder = st.empty()
+if 'calc_result' not in st.session_state:
+    st.session_state.calc_result = None
+
 if st.session_state.calc_result:
-    # 経路検索に成功している場合
-    st.success("最適ルートを表示中 (ルート案内はマップ下に表示)")
+    message_placeholder.success("最適ルートを表示します (ルート案内はマップ下に表示)")
 else:
-    # まだ検索していない、または入力待ちの場合
-    st.info("左のサイドバーを開き、検索設定から出発地と目的地を選択して「経路を検索」を押してください。")
+    message_placeholder.info("左のサイドバーを開き、検索設定から出発地と目的地を選択して「経路を検索」を押してください")
 
 # 2. ロジック関数とデータ読み込み
 def get_rank_weight(rank_str, mode_text):
@@ -356,4 +358,5 @@ if st.session_state.calc_result:
         else:
 
             st.write(f"**Step {i+1}:** {g['msg']}{dist_info}")
+
 
