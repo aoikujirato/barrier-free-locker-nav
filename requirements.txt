@@ -1,0 +1,10 @@
+pandas
+geopandas
+sqlalchemy
+geoalchemy2
+psycopg2-binary
+networkx
+folium
+streamlit
+streamlit-folium
+streamlit-js-eval
