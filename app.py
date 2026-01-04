@@ -114,7 +114,7 @@ if 'gps_coords' not in st.session_state:
 
 with st.sidebar:
     st.header("🔍 検索設定")
-    search_mode = st.radio("移動モードを選択", ("バリアフリーモード（段差を絶対避ける）", "身軽モード（多少の階段はOK）"))
+    search_mode = st.radio("移動モードを選択", ("バリアフリーモード（段差をなるべく避ける）", "身軽モード（多少の階段はOK）"))
     st.markdown("---")
     
     if not locations_df.empty:
@@ -382,6 +382,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
