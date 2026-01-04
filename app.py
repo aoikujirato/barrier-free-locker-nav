@@ -376,12 +376,13 @@ st.caption("""
 st.markdown(
     """
     <div style="text-align: center; color: #888888; font-size: 0.8rem; margin-top: 30px;">
-        © 2026 もっと荷物フリーでGO!バリアフリーナビ All rignts reserved<br>
+        © 2026 もっと荷物フリーでGO!バリアフリーナビ<br>
         お問い合わせ: <a href="mailto:aoikujirato [at] gmail.com" style="color: #888888;">aoikujirato [at] gmail.com ※[at] を@に置き換えてください</a><br>
     </div>
     """,
     unsafe_allow_html=True
 )
+
 
 
 
