@@ -29,7 +29,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 st.markdown('<div class="main-header"><div class="header-top">ついでにロッカー</div><div class="header-title">新宿西口駅：バリアフリー・ロッカー経由ナビ</div></div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-description">新宿西口駅：コインロッカー経由＆バリアフリールートの経路検索アプリ</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-description">新宿西口駅：コインロッカー経由＆バリアフリールートの経路検索が出来ます</div>', unsafe_allow_html=True)
 
 message_placeholder = st.empty()
 if 'calc_result' not in st.session_state:
@@ -366,7 +366,7 @@ st.markdown("---") # 区切り線
 # 注意事項
 st.caption("注意事項")
 st.caption("""
-- アプリケーションに利用している公共交通データは、公共交通オープンデータチャレンジにおいて提供された「歩行空間ネットワークデータ(都営地下鉄大江戸線 新宿西口駅)」(国土交通省)を加工して作成しております。(2026年12月末時点のデータ)
+- アプリケーションに利用している公共交通データは、公共交通オープンデータチャレンジにおいて提供された「歩行空間ネットワークデータ(都営地下鉄大江戸線 新宿西口駅)」(国土交通省)を加工して作成しております。(2025年12月末時点のデータ)
 - また、コインロッカーや駅地点データは公開情報を参照して製作者が自ら作成したものを利用しております。
 - 本アプリの案内は、実際の現地の状況や混雑、工事等により異なる場合があります。必ず現地の案内看板や係員の指示に従ってください。
 - 表示内容について、公共交通事業者への直接の問い合わせは行わないでください。
@@ -383,6 +383,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
