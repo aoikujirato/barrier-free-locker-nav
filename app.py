@@ -29,7 +29,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 st.markdown('<div class="main-header"><div class="header-top">ついでにロッカー</div><div class="header-title">新宿西口駅：バリアフリー・ロッカー経由ナビ</div></div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-description">新宿西口駅：コインロッカー経由＆バリアフリールートの経路検索が出来ます</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-description">新宿西口駅：コインロッカー経由＆バリアフリールートの経路検索</div>', unsafe_allow_html=True)
 
 message_placeholder = st.empty()
 if 'calc_result' not in st.session_state:
@@ -383,6 +383,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
