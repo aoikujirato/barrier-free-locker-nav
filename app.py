@@ -8,7 +8,7 @@ from shapely.geometry import Point, LineString
 from streamlit_js_eval import get_geolocation
 
 # 1. ページ設定とスタイル
-st.set_page_config(page_title="もっと荷物フリーでGO!", layout="wide")
+st.set_page_config(page_title="ついでにロッカー", layout="wide")
 
 st.markdown("""
     <style>
@@ -28,8 +28,8 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-header"><div class="header-top">もっと荷物フリーでGO !</div><div class="header-title">新宿西口駅：バリアフリー・ロッカーナビ</div></div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-description">新宿西口駅：コインロッカー検索＆バリアフリー経路検索アプリ</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header"><div class="header-top">ついでにロッカー</div><div class="header-title">新宿西口駅：バリアフリー・ロッカー経由ナビ</div></div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-description">新宿西口駅：コインロッカー経由＆バリアフリールートの経路検索アプリ</div>', unsafe_allow_html=True)
 
 message_placeholder = st.empty()
 if 'calc_result' not in st.session_state:
@@ -114,7 +114,7 @@ if 'gps_coords' not in st.session_state:
 
 with st.sidebar:
     st.header("🔍 検索設定")
-    search_mode = st.radio("移動モードを選択", ("バリアフリーモード（段差をなるべく避ける）", "身軽モード（多少の階段はOK）"))
+    search_mode = st.radio("移動モードを選択", ("バリアフリーモード（段差をなるべく避ける）", "標準モード（多少の階段はOK）"))
     st.markdown("---")
     
     if not locations_df.empty:
@@ -234,6 +234,7 @@ if search_btn:
                     "path": final_path, "locker": final_locker, 
                     "l_node": final_l_node, "mode": search_mode, "graph": G
                 }
+                st.success("最適ルートを表示中")
             else:
                 st.error("経路が見つかりませんでした。")
 
@@ -376,12 +377,13 @@ st.caption("""
 st.markdown(
     """
     <div style="text-align: center; color: #888888; font-size: 0.8rem; margin-top: 30px;">
-        © 2026 もっと荷物フリーでGO!バリアフリーナビ<br>
+        © 2026 ついでにロッカー<br>
         お問い合わせ: <a href="mailto:aoikujirato [at] gmail.com" style="color: #888888;">aoikujirato [at] gmail.com ※[at] を@に置き換えてください</a><br>
     </div>
     """,
     unsafe_allow_html=True
 )
+
 
 
 
