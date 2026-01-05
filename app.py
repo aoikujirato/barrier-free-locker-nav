@@ -234,7 +234,7 @@ if search_btn:
                     "path": final_path, "locker": final_locker, 
                     "l_node": final_l_node, "mode": search_mode, "graph": G
                 }
-                st.success("最適ルートを表示中")
+                st.success("最適ルートを表示中 (ルート案内はマップ下に表示)")
             else:
                 st.error("経路が見つかりませんでした。")
 
@@ -383,6 +383,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
