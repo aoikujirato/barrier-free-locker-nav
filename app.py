@@ -268,19 +268,19 @@ if st.session_state.calc_result:
     if start_label == "現在地 (GPS)":
         # 現在地（青い丸）
         folium.CircleMarker(
-            location=[start_pt.lat, start_pt.lon],
+            location=[start_node_info.lat, start_node_info.lon],
             radius=7, color='white', weight=2, fill=True, fill_color='#1A73E8', fill_opacity=1,
             tooltip="現在地"
         ).add_to(m)
     else:
         # 通常の出発地ピン（緑）
         folium.Marker( [start_node_info.lat, start_node_info.lon], popup="出発地", icon=folium.Icon(color='green', icon='play', prefix='fa')).add_to(m)
-    all_coordinates.append([start_pt.lat, start_pt.lon])
-
+    all_coordinates.append([start_node_info.lat, start_node_info.lon])
+    
     # 目的地（赤ピン）
     end_node_info = nodes_gdf[nodes_gdf['node_id'] == path[-1]].iloc[0]
     folium.Marker( [end_node_info.lat, end_node_info.lon], popup="目的地", icon=folium.Icon(color='red', icon='flag', prefix='fa')).add_to(m)
-    all_coordinates.append([end_pt.lat, end_pt.lon])
+    all_coordinates.append([end_node_info.lat, end_node_info.lon])
 
     # ロッカー（階層別の色でピンを表示）
     lkr_f_raw = float(locker.get('floor', 0))
@@ -381,6 +381,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
