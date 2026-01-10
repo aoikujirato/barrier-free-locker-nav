@@ -263,7 +263,8 @@ if st.session_state.calc_result:
         except: return "#808080"
 
     # --- 2. 地点の表示 ---
-    start_pt = nodes_gdf[nodes_gdf['node_id'] == path[0]].iloc[0]
+
+    start_node_info = nodes_gdf[nodes_gdf['node_id'] == path[0]].iloc[0]
     if start_label == "現在地 (GPS)":
         # 現在地（青い丸）
         folium.CircleMarker(
@@ -273,12 +274,12 @@ if st.session_state.calc_result:
         ).add_to(m)
     else:
         # 通常の出発地ピン（緑）
-        folium.Marker([start_pt.lat, start_pt.lon], popup="出発地", icon=folium.Icon(color='green', icon='play', prefix='fa')).add_to(m)
+        folium.Marker( [start_node_info.lat, start_node_info.lon], popup="出発地", icon=folium.Icon(color='green', icon='play', prefix='fa')).add_to(m)
     all_coordinates.append([start_pt.lat, start_pt.lon])
 
     # 目的地（赤ピン）
-    end_pt = nodes_gdf[nodes_gdf['node_id'] == path[-1]].iloc[0]
-    folium.Marker([end_pt.lat, end_pt.lon], popup="目的地", icon=folium.Icon(color='red', icon='flag', prefix='fa')).add_to(m)
+    end_node_info = nodes_gdf[nodes_gdf['node_id'] == path[-1]].iloc[0]
+    folium.Marker( [end_node_info.lat, end_node_info.lon], popup="目的地", icon=folium.Icon(color='red', icon='flag', prefix='fa')).add_to(m)
     all_coordinates.append([end_pt.lat, end_pt.lon])
 
     # ロッカー（階層別の色でピンを表示）
@@ -287,12 +288,9 @@ if st.session_state.calc_result:
     # folium.Iconが対応している基本色にマッピング
     icon_color_map = {0: 'blue', -1: 'green', -2: 'orange', -3: 'purple', -4: 'black'}
     l_color = icon_color_map.get(lkr_f_int, 'red' if lkr_f_int >= 1 else 'gray')
-    
+
     folium.Marker(
-        [locker.lat, locker.lon], 
-        popup=f"ロッカー: {locker.get('name')} ({lkr_f_raw}F)", 
-        icon=folium.Icon(color=l_color, icon='briefcase', prefix='fa')
-    ).add_to(m)
+    [locker.lat, locker.lon], popup=f"ロッカー: {locker.get('name')} ({lkr_f_raw}F)", icon=folium.Icon(color=l_color, icon='briefcase', prefix='fa')).add_to(m)
     all_coordinates.append([locker.lat, locker.lon])
 
     # --- 3. 経路の描画（階層別カラー） ---
@@ -383,6 +381,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
