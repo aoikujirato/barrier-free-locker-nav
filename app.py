@@ -54,8 +54,8 @@ def get_rank_weight(rank_str, mode_text):
 
 @st.cache_resource
 def load_raw_data():
-    links = gpd.read_file("link.geojson")
-    nodes = gpd.read_file("node.geojson")
+    links = gpd.read_file("link_merge.geojson")
+    nodes = gpd.read_file("node_merge.geojson")
     lockers = pd.read_csv("lockers.csv")
     
     try:
@@ -383,6 +383,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
