@@ -117,6 +117,29 @@ with st.sidebar:
     search_mode = st.radio("移動モードを選択", ("バリアフリーモード（段差をなるべく避ける）", "標準モード（多少の階段はOK）"))
     st.markdown("---")
     
+#    if not locations_df.empty:
+#        loc_options = ["", "現在地 (GPS)"] + locations_df['display_label'].tolist()
+#        start_label = st.selectbox("出発地を選択", loc_options, index=0)
+#        end_label = st.selectbox("目的地を選択", loc_options, index=0)
+
+#        # 1. 現在地が選ばれた時にGPSを起動
+#       if start_label == "現在地 (GPS)" or end_label == "現在地 (GPS)":
+#            # keyを使わずに呼び出し
+#            loc = get_geolocation()
+
+#            if loc:
+#                # 緯度・経度の取得
+#                lat = loc['coords']['latitude']
+#                lon = loc['coords']['longitude']
+#                
+#                # 前回の取得内容と異なる場合（または初回）のみ保存して再読み込み
+#                if st.session_state.gps_coords is None or \
+#                   abs(st.session_state.gps_coords['lat'] - lat) > 0.0001:
+#                    st.session_state.gps_coords = {"lat": lat, "lon": lon}
+#                    st.rerun() 
+#            else:
+#                st.info("位置情報の許可を待っています。ポップアップが出ない場合は、ブラウザのアドレスバー左にある「鍵マーク」から位置情報を許可し、ページを再読み込みしてください。")
+#
     if not locations_df.empty:
         loc_options = ["", "現在地 (GPS)"] + locations_df['display_label'].tolist()
         start_label = st.selectbox("出発地を選択", loc_options, index=0)
@@ -124,10 +147,10 @@ with st.sidebar:
 
         # 1. 現在地が選ばれた時にGPSを起動
         if start_label == "現在地 (GPS)" or end_label == "現在地 (GPS)":
-            # keyを使わずに呼び出し
             loc = get_geolocation()
 
-            if loc:
+            # 【重要】locが存在し、かつ 'coords' キーが含まれているか確認
+            if loc and isinstance(loc, dict) and 'coords' in loc:
                 # 緯度・経度の取得
                 lat = loc['coords']['latitude']
                 lon = loc['coords']['longitude']
@@ -137,9 +160,18 @@ with st.sidebar:
                    abs(st.session_state.gps_coords['lat'] - lat) > 0.0001:
                     st.session_state.gps_coords = {"lat": lat, "lon": lon}
                     st.rerun() 
+            
+            # まだ準備ができていない、またはエラー情報が入っている場合
             else:
-                st.info("位置情報の許可を待っています。ポップアップが出ない場合は、ブラウザのアドレスバー左にある「鍵マーク」から位置情報を許可し、ページを再読み込みしてください。")
-
+                # もしエラー内容が含まれている場合はデバッグ用に表示（任意）
+                if loc and 'error' in loc:
+                    st.error(f"位置情報の取得に失敗しました: {loc['error']}")
+                else:
+                    st.info("位置情報を取得しています。ブラウザの許可を確認してください...")
+                
+                # 取得できるまでこれ以降の処理（計算など）に進ませない
+                st.stop()
+                
         st.markdown("---")
         # （ロッカーサイズ選択部分はそのまま）
         st.markdown('<span style="font-size: 14px;">ロッカーサイズを選択</span>', unsafe_allow_html=True)
@@ -381,6 +413,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
